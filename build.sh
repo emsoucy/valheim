@@ -2,7 +2,7 @@
 set -o errexit
 
 # Vars
-CONTAINER=$(buildah from emsoucy/steamcmd)
+CONTAINER=$(buildah from docker.io/emsoucy/steamcmd)
 MOUNTPOINT=$(buildah mount $CONTAINER)
 
 buildah run $CONTAINER -- sh -c 'mkdir -p /home/steam/.config/unity3d/IronGate/Valheim/worlds'
