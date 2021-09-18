@@ -11,4 +11,4 @@ buildah copy $CONTAINER 'startServer.sh' '/home/steam'
 buildah config --cmd '/home/steam/startServer.sh' $CONTAINER
 
 buildah unmount $CONTAINER
-buildah commit --squash $CONTAINER valheim 
+buildah commit --squash $CONTAINER docker.io/emsoucy/valheim 
