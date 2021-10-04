@@ -1,14 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -o errexit
 
-# Vars
-CONTAINER=$(buildah from docker.io/emsoucy/steamcmd)
-MOUNTPOINT=$(buildah mount $CONTAINER)
+CONTAINER=$(buildah from steamcmd)
 
-buildah run $CONTAINER -- sh -c 'mkdir -p /home/steam/.config/unity3d/IronGate/Valheim/worlds'
-buildah copy $CONTAINER 'startServer.sh' '/home/steam'
-
+buildah run $CONTAINER -- sh -c \
+  'mkdir -p /home/steam/.config/unity3d/IronGate/Valheim/worlds'
+buildah copy $CONTAINER $(dirname $(realpath "$0"))/startServer.sh '/home/steam'
 buildah config --cmd '/home/steam/startServer.sh' $CONTAINER
 
-buildah unmount $CONTAINER
-buildah commit --squash $CONTAINER docker.io/emsoucy/valheim 
+buildah commit --squash $CONTAINER valheim 
